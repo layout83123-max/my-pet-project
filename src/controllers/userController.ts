@@ -51,7 +51,6 @@ export async function login(req: Request, res: Response): Promise<void> {
   const { email, password } = result.data
 
 const user = await UserModel.findOne({ email });
-console.log("user.role:", user?.role) // що виводить?
 
   if (!user) {
     res.status(401).send("Invalid email")
