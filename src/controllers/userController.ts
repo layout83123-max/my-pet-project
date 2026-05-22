@@ -5,6 +5,7 @@ import { JWT_SECRET } from "../config";
 import { userSchema, User, loginSchema, changePassSchema, emailSchema } from "../types/user"
 import { UserModel } from "../modules/userModel";
 
+
 export async function getUser(req: Request, res: Response): Promise<void> {
   const users = await UserModel.find()
   res.json(users)
@@ -50,7 +51,7 @@ export async function login(req: Request, res: Response): Promise<void> {
   const { email, password } = result.data
 
 const user = await UserModel.findOne({ email });
-
+console.log("user.role:", user?.role) // що виводить?
 
   if (!user) {
     res.status(401).send("Invalid email")
@@ -64,7 +65,8 @@ res.status(401).send("password wrong")
 return
 }
 const token = jwt.sign(
-  { email: user.email },
+  { email: user.email,
+   role: user.role },
   JWT_SECRET,
   { expiresIn: "3d"}
 )

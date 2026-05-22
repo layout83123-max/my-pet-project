@@ -15,6 +15,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
 
     try {
     const decoded = jwt.verify(token, JWT_SECRET);
+const raw = jwt.decode(token);
    (req as any).user = decoded;
     next()
     } catch(error) {
