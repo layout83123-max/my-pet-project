@@ -4,8 +4,8 @@ import { JWT_SECRET } from "../config"
 
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const authHeader = req.headers["authorization"] // this should contain the user's token, the header name is authorization
-    const token = authHeader && authHeader.split(" ")[1] // split by space to separate Bearer from the token
+    const authHeader = req.headers["authorization"] 
+    const token = authHeader && authHeader.split(" ")[1] 
 
     if (!token) {
         res.status(401).send("token missing")
@@ -14,11 +14,11 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
 
 
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
-
-        (req as any).user.email = decoded 
-        next()
+    const decoded = jwt.verify(token, JWT_SECRET);
+   (req as any).user = decoded;
+    next()
     } catch(error) {
+        console.error("Token verification error: ", error)
         res.status(403).send("The token is invalid")
     }
 }
