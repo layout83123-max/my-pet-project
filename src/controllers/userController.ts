@@ -152,5 +152,45 @@ res.status(200).json({
 })
 }
 
+export async function updateRole(req: Request, res: Response ):Promise<void> {
+const result = emailSchema.safeParse(req.body);
 
-  
+if (!result.success) {
+  res.status(400).json(result.error.format())
+  return
+}
+
+const email = result.data.email
+
+try {
+await UserModel.findOneAndUpdate({ email }, { role: "admin" })
+  if (!result) {
+    res.status(404).json({ message: "User not found" })
+    return
+  }
+} catch(error) {
+  res.status(500).json({ message: "Server error" }) 
+  return
+}
+
+  res.status(200).json({ message: "You have successfully changed the user role to admin."})
+}
+
+
+export async function getProfile(req: Request, res: Response): Promise<void> {
+
+    const email = (req as any).user.email
+    try {
+  const user = await UserModel.findOne({ email }).select("-password")
+  if (!user) {
+    res.status(404).json({ message: "User not found"})
+    return
+  }
+  res.status(200).json({ user })
+
+    } catch (error) {
+res.status(500).json({message: "Server Error"})
+    }
+}
+
+
