@@ -1,16 +1,23 @@
 {
-  "name": "typescript-and-express",
+  "name": "user-rest-api-ts",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "REST API for user management",
+  "main": "dist/server.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "typescript",
+    "express",
+    "mongodb",
+    "jwt",
+    "rest-api",
+    "nodejs"
+  ],
+  "author": "Velmora1",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "dotenv": "^17.4.2",
@@ -21,10 +28,8 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
-    "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/mongoose": "^5.11.96",
     "@types/node": "^25.7.0",
     "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
